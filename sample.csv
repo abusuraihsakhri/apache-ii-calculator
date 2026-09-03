@@ -1,4 +1,7 @@
-patient_id,age,sex,prior_vte,cancer,immobility,surgery
-P001,68,M,0,1,1,0
-P002,45,F,0,0,0,1
-P003,71,M,1,0,1,1
+patient_id,temp_c,map_mmhg,hr,rr,pao2,fio2,ph,sodium,potassium,creatinine,acute_renal_failure,hematocrit,wbc,gcs,age_years,chronic_health_present,emergency_surgery,elective_surgery,diagnosis
+P001,37.0,85,80,16,95,0.21,7.40,140,4.0,1.0,0,40.0,8.0,15,30,0,0,0,
+P002,39.2,68,128,34,58,0.40,7.22,134,5.6,2.8,0,28.0,21.0,13,67,0,0,0,sepsis
+P003,36.2,55,130,30,65,0.50,7.30,138,5.0,1.8,0,35.0,10.0,14,60,0,0,0,cardiogenic_shock
+P004,38.8,115,118,28,75,0.30,7.36,142,4.4,1.6,0,33.0,17.5,12,72,1,1,0,sepsis
+P005,35.4,62,110,26,110,0.60,7.28,136,4.8,3.6,1,31.0,24.0,10,76,1,0,0,sepsis
+P006,37.2,92,84,18,88,0.21,7.42,141,4.2,0.9,0,38.5,7.5,15,52,1,0,1,

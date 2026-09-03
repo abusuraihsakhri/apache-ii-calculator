@@ -500,21 +500,39 @@ def apache_ii_from_dict(params: dict) -> ApacheIIResult:
     # Map common aliases
     alias_map = {
         "temperature": "temp_c",
+        "temp": "temp_c",
+        "core_temp": "temp_c",
         "map": "map_mmhg",
+        "mean_arterial_pressure": "map_mmhg",
         "heart_rate": "hr",
+        "pulse": "hr",
         "respiratory_rate": "rr",
+        "resp_rate": "rr",
         "arterial_ph": "ph",
+        "blood_ph": "ph",
         "na": "sodium",
+        "serum_sodium": "sodium",
         "k": "potassium",
+        "serum_potassium": "potassium",
         "cr": "creatinine",
+        "serum_creatinine": "creatinine",
         "hct": "hematocrit",
         "white_blood_cells": "wbc",
+        "white_blood_cell_count": "wbc",
         "gcs_score": "gcs",
+        "glasgow_coma_scale": "gcs",
         "age": "age_years",
         "arf": "acute_renal_failure",
+        "acute_renal_failure_present": "acute_renal_failure",
         "emerg": "emergency_surgery",
+        "emergency": "emergency_surgery",
         "elective": "elective_surgery",
         "chronic": "chronic_health_present",
+        "chronic_health": "chronic_health_present",
+        "severe_chronic_organ_failure": "chronic_health_present",
+        "immunocompromised": "chronic_health_present",
+        "pao2_mmhg": "pao2",
+        "paco2_mmhg": "paco2",
     }
     mapped = {}
     for k, v in params.items():
@@ -549,13 +567,16 @@ def apache_ii_from_dict(params: dict) -> ApacheIIResult:
         if fk in mapped and mapped[fk] is not None and mapped[fk] != "":
             mapped[fk] = float(mapped[fk])
 
-    # Remove empty strings for optional params
-    for k in list(mapped.keys()):
-        if mapped[k] == "" or mapped[k] is None:
-            if k in ("pao2", "fio2", "paco2", "diagnosis"):
-                mapped.pop(k, None)
+    # Filter only known apache_ii parameters
+    valid_keys = {
+        "temp_c", "map_mmhg", "hr", "rr", "ph", "sodium", "potassium",
+        "creatinine", "hematocrit", "wbc", "gcs", "age_years",
+        "chronic_health_present", "emergency_surgery", "elective_surgery",
+        "acute_renal_failure", "pao2", "fio2", "paco2", "diagnosis",
+    }
+    filtered = {k: v for k, v in mapped.items() if k in valid_keys}
 
-    return apache_ii(**mapped)
+    return apache_ii(**filtered)
 
 
 # ---------------------------------------------------------------------------
